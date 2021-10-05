@@ -154,6 +154,30 @@ describe("Casbin MySQL Adapter tests", function ()
         assert.is.Same(policies, e:GetPolicy())
     end)
 
+    it("Update Policies test", function ()
+        local e = getEnforcer()
+        local policies = {
+            {"alice", "data1", "read"},
+            {"bob", "data2", "write"},
+            {"data2_admin", "data2", "read"},
+            {"data2_admin", "data2", "write"}
+        }
+        assert.is.Same(policies, e:GetPolicy())
+
+        e:UpdatePolicies(
+                {{"alice", "data1", "read"},{"bob", "data2", "write"}},
+                {{"alice", "data1", "write"},{"bob", "data2", "read"}}
+        )
+        policies = {
+            {"alice", "data1", "write"},
+            {"bob", "data2", "read"},
+            {"data2_admin", "data2", "read"},
+            {"data2_admin", "data2", "write"}
+        }
+
+        assert.is.Same(policies, e:GetPolicy())
+    end)
+
     it("Remove Filtered Policy test", function ()
         local e = getEnforcer()
         assert.is.True(e:enforce("alice", "data1", "read"))
