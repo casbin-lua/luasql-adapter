@@ -174,11 +174,11 @@ end
     * updatePolicies updates policy rules from the storage
 ]]
 function _M:updatePolicies(_, ptype, oldRules, newRules)
-    if #oldRules==#newRules then
+    if #oldRules == #newRules then
         for i = 1, #oldRules do
-            local _,err=self:updatePolicy(_,ptype,oldRules[i],newRules[i])
-            if err~=nil then
-                return false,err
+            local _, err = self:updatePolicy(_, ptype, oldRules[i], newRules[i])
+            if err then
+                return false, err
             end
         end
         return true
