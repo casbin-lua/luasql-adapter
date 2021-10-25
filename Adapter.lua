@@ -226,10 +226,12 @@ end
 function _M:removeFilteredPolicy(_, ptype, fieldIndex, fieldValues)
     local values = {}
     table.insert(values, "ptype = '" .. ptype .. "'")
-    for i = fieldIndex + 1, #fieldValues do
-        if Util.trim(fieldValues[i]) ~= "" then
-            table.insert(values, "v" .. tostring(i-1) .. " = '" .. Util.trim(fieldValues[i]) .. "'")
+    local i = fieldIndex + 1
+    for j = 1, #fieldValues do
+        if Util.trim(fieldValues[j]) ~= "" then
+            table.insert(values, "v" .. tostring(i-1) .. " = '" .. Util.trim(fieldValues[j]) .. "'")
         end
+        i = i + 1
     end
 
     return self.conn:execute("DELETE FROM " .. self.tableName .. " WHERE " .. table.concat(values, " AND "))
