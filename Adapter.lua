@@ -186,6 +186,12 @@ function _M:updatePolicies(_, ptype, oldRules, newRules)
     return false
 end
 
+function _M:updateFilteredPolicies(_, ptype, newRules, fieldIndex, fieldValues)
+    return self:removeFilteredPolicy(_, ptype, fieldIndex, fieldValues) and self:addPolicies(_, ptype, newRules)
+
+end
+
+
 --[[
     * loadFilteredPolicy loads the policy rules that match the filter from the storage.
 ]]
