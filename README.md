@@ -13,6 +13,15 @@ First, install the corresponding driver of LuaSQL from LuaRocks based on the dat
 - For PostgreSQL, install luasql-postgres.
 - For SQLite3, install luasql-sqlite3.
 
+Take installing luasql-mysql for example, others are similar: 
+- If there is no mysql locally, please install it locally.
+- Run `whereis mysql` to find your mysql path, then cd into th path to find include path and lib path.
+  ```shell
+  [root@master ~]# whereis mysql
+  mysql: /usr/bin/mysql /usr/local/mysql
+  ```
+- Use mysql include path and lib path to install luasql-mysql. Run `luarocks install luasql-mysql MYSQL_INCDIR=/usr/local/mysql/include MYSQL_LIBDIR=/usr/local/mysql/lib`
+
 Then install the casbin-adapter from LuaRocks by
 ```bash
 sudo luarocks install https://raw.githubusercontent.com/casbin-lua/luasql-adapter/master/casbin-adapter-1.0.0-1.rockspec
